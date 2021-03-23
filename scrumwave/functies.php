@@ -1,6 +1,23 @@
 <?php
-    function getAllProjects(){
-        $conn = openDatabaseConnection();
+    function DbConnect(){
+        $servername="localhost";
+		$username="root";
+		$password="";
+		$dbname="scrum bord";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn-> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conn; 
+    
+        }
+        catch (PDOException $e){
+            echo "connection failed" . $e->getMessage();
+        }
+    }
+
+     function getAllProjects(){
+        $conn = DbConnect();
         $sql = "SELECT * FROM projects WHERE Status = 'ongoing'";
         $statement = $conn->prepare($sql);
         $statement->execute();
@@ -11,7 +28,7 @@
     }
 
     function getAllTasks(){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
     
         $sql = "SELECT * FROM tasks";
         $statement = $conn->prepare($sql);
@@ -23,7 +40,7 @@
     }
 
     function getAllUsers(){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
     
         $sql = "SELECT * FROM users WHERE Name != '' ";
         $statement = $conn->prepare($sql);
@@ -35,7 +52,7 @@
     }
 
     function getAllNoneUsers(){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
     
         $sql = "SELECT * FROM users WHERE Name = '' ";
         $statement = $conn->prepare($sql);
@@ -47,7 +64,8 @@
     }
 
     function addUser($data, $id){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("UPDATE users SET Name= :Name WHERE id = :id");
         $statement->bindParam(":id", $id);
         $statement->bindParam(":Name" , $data["Name"]);
@@ -55,14 +73,16 @@
     }
 
     function createProject($Name){
-        $conn = openDatabaseConnection();
-        $statement = $conn->prepare("INSERT INTO projects (Name) VALUES (:Name)");
+        $conn = DbConnect();
+
+        $statement = $conn->prepare("INSERT INTO projects (`Name`) VALUES (:Name)");
         $statement->bindParam(":Name" , $Name);
         $statement->execute();
     }
     
     function createTaskInfo($data, $id){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("UPDATE tasks SET Task_name = :Task_name, description = :description, Assigned_To = :AssignedTo WHERE id = :id");
         $statement->bindParam(":id" , $id);
         $statement->bindParam(":Task_name" , $data["Task_name"]);
@@ -72,15 +92,16 @@
     }
 
     function deleteProject($id){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("DELETE FROM projects WHERE Id = :id ");
         $statement->bindParam(":id",$id);
         $statement->execute();
     }
 
     function getProjectById($id){
-        $conn = openDatabaseConnection();
-        $statement = $conn->prepare("SELECT * FROM projects WHERE id= :id");
+        $conn = DbConnect();
+        $statement = $conn->prepare("SELECT * FROM projects WHERE id = :id");
         $statement->bindParam(":id", $id);
         $statement->execute();
         $conn = null; 
@@ -88,7 +109,8 @@
     }
 
     function updateProject($data, $id){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("UPDATE projects SET Name= :Name WHERE id = :id");
         $statement->bindParam(":id", $id);
         $statement->bindParam(":Name" , $data["Name"]);
@@ -96,14 +118,16 @@
     }
 
     function doneProject($id){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("UPDATE projects SET Status = 'Done' WHERE id = :id");
         $statement->bindParam(":id", $id);
         $statement->execute();
     }
 
     function doneProjects(){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("SELECT * FROM projects WHERE Status = 'Done'");
         $statement->execute();
         $conn = null;
@@ -111,7 +135,8 @@
     }
 
     function tasksById($id){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("SELECT * FROM tasks WHERE id = :id");
         $statement->execute();
         $conn = null;
@@ -119,7 +144,8 @@
     }
 
     function updateProgress($data){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("UPDATE tasks SET Progress= :Progress WHERE Id = :Id");
         $statement->bindParam(":Id", $data["Id"]);
         $statement->bindParam(":Progress" , $data["Progress"]);
@@ -127,7 +153,8 @@
     }
     
     function countDone($Id){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("SELECT COUNT(*) FROM tasks WHERE Progress = '4' AND projectId = Id = :Id");
         $statement->execute();
         $conn = null;
@@ -135,7 +162,8 @@
     }
 
     function createTask($data, $id){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("INSERT INTO tasks (Description, Task_name, Assigned_To, projectId ) VALUES (:description, :TaskName, :AssignedTo, :id )");
         $statement->bindParam(":description" , $data["description"]);
         $statement->bindParam(":TaskName" , $data["Task_name"]);
@@ -145,7 +173,8 @@
     }
 
     function updateAllFromProject($data, $id){
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
+
         $statement = $conn->prepare("UPDATE projects SET description= :description, Name= :Name, Color= :Color WHERE Id = :Id");
         $statement->bindParam(":description" , $data["description"]);
         $statement->bindParam(":Name" , $data["Name"]);
@@ -156,7 +185,7 @@
 
     function deleteUser($id){
         $empty="";
-        $conn = openDatabaseConnection();
+        $conn = DbConnect();
         $statement = $conn->prepare("UPDATE users SET Name= :Name WHERE id = :id");
         $statement->bindParam(":id", $id);
         $statement->bindParam(":Name" , $empty);

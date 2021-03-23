@@ -34,4 +34,4 @@
     		transform:translate(-50%);
     	}
 	</style>
-  	<img id="Scrumwave" src="<?= URL ?>public/img/Logo.png" width="250px" height="100px">
+  	<img id="Scrumwave" src="../templates/img/Logo.png" width="650px" height="120px">

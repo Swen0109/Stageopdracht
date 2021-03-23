@@ -1,8 +1,15 @@
+<?php 
+    require("../functies.php");
+    $doneProject = doneProjects();
+    include("../templates/header.php");
+    $projects = getAllProjects();
+?>
+
 <style>
 table {
     position:absolute;
     left:50%;
-    top:520px;
+    top:550px;
     transform:translate(-50%);
     
 }
@@ -36,7 +43,7 @@ th, td {
 #dropdown{
     position:absolute;
     left:12%;
-    top:-90px;
+    top:-30px;
     background-color: #15538c;
     color:white;
 }
@@ -52,15 +59,20 @@ body{
 #overview{
     position: absolute;
     right: 12%;
-    top: 420px;
+    top: 450px;
     color: #15538c;
     font-size: 2rem;
 }
 
-
+form>input{
+    position:absolute;
+    top:430px;
+    left: 50%;
+    transform:translate(-50%);
+}
 
 body{
-   margin-top:120px;
+   margin-top:150px;
 }
 
 </style>
@@ -72,17 +84,16 @@ body{
 </head>
 
 <body>
-
 <h1>Welkom bij Scrumwave!</h1>
 <br>
 <br>
 <h2>Maak hier een bord aan, pas het bord aan of verwijder hem.</h2>
 <br><br>
+<h3>Voer hier de naam van je scrum bord in: </h3>
 
-    <h3>Voer hier de naam van je scrum bord in: </h3>
-    <form name="create" method="post" action="<?php echo URL ?>Home/required"><br>
-        <input style="width: 300px; height: 40px;" class="text-center" type="text" name="Name" placeholder="Project naam"></input><br>
-    </form><br><br>
+<form name="create" method="post" action="homeController/addProject.php"><br>
+    <input style="width: 300px; height: 50px;" class="text-center" type="text" name="Name" placeholder="Project naam"></input><br>
+</form><br><br>
     
 <table id="tabel" style="width:700px;">
   <tr style="color: #15538c;">
@@ -101,10 +112,6 @@ body{
   <?php } ?>
 </table>
 
-<?php 
-$doneProject = doneProjects();
-?>
-
 <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdown" data-toggle="dropdown">Done
   <span class="caret"></span></button>
@@ -116,5 +123,5 @@ $doneProject = doneProjects();
     <br><br><br><br>
 </div>
 <a id="overview" href="<?php echo URL ?>Home/allProjects"><i class="fas fa-tasks"></i></a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>

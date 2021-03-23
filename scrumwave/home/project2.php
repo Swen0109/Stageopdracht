@@ -32,7 +32,7 @@
     <h1>delete user</h1>
     <label for="color"><b>color</b></label>
     <select name="color" id="formColor" required>
-      <option value="" selected>wie wil je delete ?</option>
+      <option value="" selected>Wie wil je verwijderen?</option>
       <?php foreach( $users as $User ){ ?>
         <option value="<?php echo $User['Id'] ?>" style="background-color:<?php echo $User['Color'] ?>"><?php echo $User["Name"] ?></option>
       <?php } ?>
