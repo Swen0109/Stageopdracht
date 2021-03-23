@@ -1,3 +1,10 @@
+<?php
+	require("../functies.php");
+	$projects = getAllProjects();
+	$updaten = getProjectById($_GET["id"]);
+	include("../templates/header.php");
+?>
+
 <style>
     h1{
         margin-top:150px;
@@ -7,7 +14,7 @@
 <h1 class="text-center">Project aanpassen:</h1>
 <br>
 <?php foreach($updaten as $update){?>
-    <form class="text-center" name="update" method="post" action="<?php echo URL?>Home/edit/<?php echo $update["Id"]?>"><br><br>
+    <form class="text-center" name="update" method="post" action="homeController/updateProject.php?id=<?php echo $update["Id"]?>"><br><br>
 	    <p>Project name: &nbsp; &nbsp;<input class="text-center" type="text" name="Name" value="<?php echo $update["Name"]?>"></input></p><br><br>
         <p>Project description: &nbsp; &nbsp;<input class="text-center" type="text" name="description" value="<?php echo $update["description"]?>"></p><br><br>
         <p>Project color: &nbsp; &nbsp;

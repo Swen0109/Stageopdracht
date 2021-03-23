@@ -105,9 +105,9 @@ body{
   <?php foreach ($projects as $project){ ?>
     <tr style="color: #15538c;">
         <td><a href="<?php echo URL ?>Home/oneProject/<?php echo $project["Id"]?>"><p class="text-center"><?php echo $project["Name"]?></p></a></td>
-        <td><a id="update" style="margin-top:-12px;" class="text-center" href="<?php echo URL ?>Home/update/<?php echo $project['Id']?>"><i class="fas fa-pencil-alt text-center"></i></a></td>
-        <td><a id="delete" style="margin-top:-12px;" href="<?php echo URL ?>Home/delete/<?php echo $project["Id"]?>"><i class="fas fa-trash"></i></a></td>
-        <td><a id="done"   style="margin-top:-12px;" href="<?php echo URL ?>Home/done/<?php echo $project["Id"]?>"><i class="fas fa-check"></i></a></td>
+        <td><a id="update" style="margin-top:-12px;" class="text-center" href="update.php?id=<?php echo $project["Id"]?>"><i class="fas fa-pencil-alt text-center"></i></a></td>
+        <td><a id="delete" style="margin-top:-12px;" href="delete.php?id=<?php echo $project["Id"]?>"><i class="fas fa-trash"></i></a></td>
+        <td><a id="done"   style="margin-top:-12px;" href="done.php?id=<?php echo $project["Id"]?>"><i class="fas fa-check"></i></a></td>
     </tr>
   <?php } ?>
 </table>
