@@ -104,7 +104,7 @@ body{
   </tr>
   <?php foreach ($projects as $project){ ?>
     <tr style="color: #15538c;">
-        <td><a href="<?php echo URL ?>Home/oneProject/<?php echo $project["Id"]?>"><p class="text-center"><?php echo $project["Name"]?></p></a></td>
+        <td><a href="project2.php?id= <?php echo $project["Id"]?>"><p class="text-center"><?php echo $project["Name"]?></p></a></td>
         <td><a id="update" style="margin-top:-12px;" class="text-center" href="update.php?id=<?php echo $project["Id"]?>"><i class="fas fa-pencil-alt text-center"></i></a></td>
         <td><a id="delete" style="margin-top:-12px;" href="delete.php?id=<?php echo $project["Id"]?>"><i class="fas fa-trash"></i></a></td>
         <td><a id="done"   style="margin-top:-12px;" href="done.php?id=<?php echo $project["Id"]?>"><i class="fas fa-check"></i></a></td>
@@ -122,6 +122,6 @@ body{
   </ul>
     <br><br><br><br>
 </div>
-<a id="overview" href="projects/index.php"><i class="fas fa-tasks"></i></a>
+<a id="overview" href="../projects/index.php"><i class="fas fa-tasks"></i></a>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>

@@ -1,3 +1,14 @@
+<?php
+require("../functies.php");
+$projects = getAllProjects();
+$tasks = getAllTasks();
+$users = getAllUsers();
+$noneUsers = getAllNoneUsers();
+
+include("../templates/headerMenu.php");
+?>
+
+
 <!-- de code voor de toggle menu -->
 <nav class="navbar">
     <a id="toggleMenu"><i class="fas fa-angle-double-up logo"></i></a>
@@ -7,7 +18,7 @@
 <nav  class="navbar-nav">
   <ul class="navbar-nav-flex">
     <li class="nav-item">
-    	<a class="nav-link" href="<?php echo URL?>home/index">
+    	<a class="nav-link" href="../home/index.php">
     		<i class="fas fa-home"></i>
     	</a>
     </li>
@@ -28,7 +39,7 @@
 
 <!-- de code voor de popup delete user -->
 <div class="less-form-popup" id="myForm">
-  <form method="post" action="<?php echo URL?>projects/delete" class="form-container"> <!-- de echo URL in de action zorgt ervoor dat de URL opnieuw begint en niet achter de al bestaande URL ( dit geld voor alle echo URL's ) -->
+  <form method="post" action="ProjectsController/DeleteUser.php" class="form-container"> <!-- de echo URL in de action zorgt ervoor dat de URL opnieuw begint en niet achter de al bestaande URL ( dit geld voor alle echo URL's ) -->
     <h1>delete user</h1>
     <label for="color"><b>color</b></label>
     <select name="color" id="formColor" required>
@@ -37,6 +48,7 @@
         <option value="<?php echo $User['Id'] ?>" style="background-color:<?php echo $User['Color'] ?>"><?php echo $User["Name"] ?></option>
       <?php } ?>
     </select>
+
     <button type="submit" class="less-btn">delete</button>
     <button type="reset" class="less-btn less-cancel">cancel</button>
   </form>
@@ -66,7 +78,7 @@
 
 <!-- de code voor de popup add user -->
 <div class="form-popup" id="myForm">
-  <form method="post" action="<?php echo URL?>projects/edit" class="form-container">
+  <form method="post" action="projectsController/AddUser.php" class="form-container">
     <h1>add user</h1>
     <label for="name"><b>name</b></label>
     <input id="formName" type="text" placeholder="enter name" name="Name" required>
@@ -76,6 +88,7 @@
         <option value="<?php echo $noneUser['Id'] ?>" style="background-color:<?php echo $noneUser['Color'] ?>"><?php echo $noneUser["ColorName"] ?></option>
       <?php } ?>
     </select>
+    
     <button type="submit" class="btn">add</button>
     <button type="reset" class="btn cancel more-users">cancel</button>
   </form>
@@ -386,7 +399,7 @@
         
         <!-- de code voor de projectForm -->
         <div class="projectForm" id="projectForm<?php echo $project["Id"]?>" name="projectForm">
-          <form name="projectForm" method="post" action="<?php echo URL ?>Projects/updateProjects/<?php echo $project["Id"] ?>" class="form-container2"><br><br>
+          <form name="projectForm" method="post" action="projectsController/updateProjects.php" class="form-container2"><br><br>
             
             <!-- normale input voor name en discription -->
             <input type="text" placeholder="project Name:" name="Name" value="<?php echo $project["Name"]?>" required><br><br>
@@ -414,7 +427,8 @@
               <?php } ?>
 
             </select><br>
-
+              
+            <input type="text" hidden name="ProjectId" value="<?php echo $project["Id"] ?>">
             <button style="margin-top:80px;" type="button" id="closeProjectTab<?php echo $project["Id"]?>">Close project</button><!-- button om projectForm invisible te maken -->
             <button type="submit" value="submit">save project</button>
 
@@ -486,7 +500,7 @@
 
         <!-- de code voor tasksForm -->
         <div class="TaskForm" id="TaskForm<?php echo $project["Id"]?>" name="TaskForm">
-          <form name="addTask" method="post" action="<?php echo URL ?>Projects/addTask/<?php echo $project["Id"] ?>" class="form-container2"><br><br> <!-- de action in deze form gaat naar de ProjectsController(Projects) en zoekt dan de functie addTask dan sturen we daarna nog wat mee ( in dit geval $project["Id"]) -->
+          <form name="addTask" method="post" action="projectsController/AddTask.php" class="form-container2"><br><br> <!-- de action in deze form gaat naar de ProjectsController(Projects) en zoekt dan de functie addTask dan sturen we daarna nog wat mee ( in dit geval $project["Id"]) -->
             <input type="text" placeholder="task Name:" name="Task_name" required><br><br>
             <input type="text" placeholder="Task description:" name="description"><br><br>
             <select name="Assigned_To" required>
@@ -495,6 +509,8 @@
                 <option value=" <?php echo $user['Id'] ?> " style="background-color: <?php echo $user['Color'] ?> "> <?php echo $user["Name"] ?> </option>
               <?php } ?>
             </select>
+  
+            <input type="text" hidden name="ProjectId" value="<?php echo $project["Id"] ?>">
             <br><br><br><br><br><br><br>
             <button type="button" id="closeAddTaskTab<?php echo $project["Id"]?>">Close add task</button>
             <button type="submit" value="submit">add task</button>
@@ -612,7 +628,7 @@
 
               <!-- de code voor myTask -->
               <div class="myTask" id="myTask" name="myTask<?php echo $task["Id"] ?>">
-                <form name="update-<?php echo $task["Id"]?>" method="post" action="<?php echo URL ?>Projects/IngevuldeTask/<?php echo $project["Id"] ?>" class="form-container2"><br><br>
+                <form name="update-<?php echo $task["Id"]?>" method="post" action="projectsController/IngevuldeTask.php" class="form-container2"><br><br>
                   <input type="text" placeholder="Task Name:" name="Task_name" required value="<?php echo $task["Task_name"]?>"><br><br>
                   <input type="text" placeholder="Task description:" name="description" value="<?php echo $task["description"]?>"><br><br>
 
@@ -988,7 +1004,7 @@
         
       //deze ajax code zorgt ervoor dat de aanpassingen in progress wordt aangepast in de database zonder op een knop te klikken 
       $.ajax({
-	    	url: "<?php echo URL ?>projects/save",
+	    	url: "projectsController/save.php",
 	    	type: "POST",
 	    	data: { Progress: Progress, Id: draggableElementId, projectId: droppableElementData },
 	    	cache: false,

@@ -101,6 +101,7 @@
 
     function getProjectById($id){
         $conn = DbConnect();
+        
         $statement = $conn->prepare("SELECT * FROM projects WHERE id = :id");
         $statement->bindParam(":id", $id);
         $statement->execute();

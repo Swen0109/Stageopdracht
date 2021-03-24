@@ -1,3 +1,14 @@
+<?php
+  require("../functies.php");
+  $projects = getProjectById( $_GET["id"]);
+  $tasks = getAllTasks();
+  $users = getAllUsers();
+  $noneUsers = getAllNoneUsers();
+
+  include("../templates/headerMenu.php");
+?>
+  
+
 <!-- de code voor de toggle menu -->
 <nav class="navbar">
     <a id="toggleMenu"><i class="fas fa-angle-double-up logo"></i></a>
@@ -7,7 +18,7 @@
 <nav  class="navbar-nav">
   <ul class="navbar-nav-flex">
   	<li class="nav-item">
-  		<a class="nav-link" href="<?php echo URL?>projects/home">
+  		<a class="nav-link" href="index.php">
   			<i class="fas fa-home"></i>
   		</a>
   	</li>
@@ -28,7 +39,7 @@
 
 <!-- de code voor de popup delete user -->
 <div class="less-form-popup" id="myForm">
-  <form method="post" action="<?php echo URL?>projects/delete" class="form-container"> <!-- de echo URL in de action zorgt ervoor dat de URL opnieuw begint en niet achter de al bestaande URL ( dit geld voor alle echo URL's ) -->
+  <form method="post" action="../projects/ProjectsController/DeleteUser.php" class="form-container"> <!-- de echo URL in de action zorgt ervoor dat de URL opnieuw begint en niet achter de al bestaande URL ( dit geld voor alle echo URL's ) -->
     <h1>delete user</h1>
     <label for="color"><b>color</b></label>
     <select name="color" id="formColor" required>
@@ -66,7 +77,7 @@
 
 <!-- de code voor de popup add user -->
 <div class="form-popup" id="myForm">
-  <form method="post" action="<?php echo URL?>projects/edit" class="form-container">
+  <form method="post" action="../projects/ProjectsController/AddUser.php" class="form-container">
     <h1>add user</h1>
     <label for="name"><b>name</b></label>
     <input id="formName" type="text" placeholder="enter name" name="Name" required>
@@ -386,7 +397,7 @@
 
         <!-- de code voor de projectForm -->
         <div class="projectForm" id="projectForm<?php echo $project["Id"]?>" name="projectForm">
-          <form name="projectForm" method="post" action="<?php echo URL ?>Projects/updateProjectsOneProject/<?php echo $project["Id"] ?>" class="form-container2"><br><br>
+          <form name="projectForm" method="post" action="../projects/projectsController/updateProjectsOneProject.php?id=<?php echo $project["Id"] ?>" class="form-container2"><br><br>
                   
             <!-- normale input voor name en discription -->
             <input type="text" placeholder="project Name:" name="Name" value="<?php echo $project["Name"]?>" required><br><br>
@@ -486,7 +497,7 @@
 
           <!-- de code voor tasksForm -->
           <div class="TaskForm" id="TaskForm<?php echo $project["Id"]?>" name="TaskForm">
-            <form name="addTask" method="post" action="<?php echo URL ?>Projects/addTaskOneProject/<?php echo $project["Id"] ?>" class="form-container2"><br><br>
+            <form name="addTask" method="post" action="../projects/ProjectsController/addTaskOneProject.php?id=<?php echo $project["Id"]?>" class="form-container2"><br><br>
               <input type="text" placeholder="task Name:" name="Task_name" required><br><br>
               <input type="text" placeholder="Task description:" name="description" required><br><br>
               <select name="Assigned_To" required>
@@ -612,7 +623,7 @@
 
                 <!-- de code voor myTask -->
                 <div class="myTask" id="myTask" name="myTask<?php echo $task["Id"] ?>">
-                  <form name="update-<?php echo $task["Id"]?>" method="post" action="<?php echo URL ?>Projects/IngevuldeTaskOneProject/<?php echo $project["Id"] ?>" class="form-container2"><br><br>
+                  <form name="update-<?php echo $task["Id"]?>" method="post" action="../projects/ProjectsController/ingevuldeTaskOneProject.php?id=<?php echo $project["Id"]?>" class="form-container2"><br><br>
                       <input type="text" placeholder="Task Name:" name="Task_name" required value="<?php echo $task["Task_name"];?>"><br><br>
                       <input type="text" placeholder="Task description:" name="description" required value="<?php echo $task["description"]?>"><br><br>
                       
@@ -988,7 +999,7 @@
 
       //deze ajax code zorgt ervoor dat de aanpassingen in progress wordt aangepast in de database zonder op een knop te klikken 
 	    $.ajax({
-	    	url: "<?php echo URL ?>projects/save",
+	    	url: "../projects/ProjectsController/save.php",
 	    	type: "POST",
 	    	data: { Progress: Progress, Id: draggableElementId, projectId: droppableElementData },
 	    	cache: false,
