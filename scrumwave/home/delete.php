@@ -13,12 +13,10 @@
 
 <div class="alert alert-dark text-center" role="alert">
     <strong>Delete</strong>&nbsp; &nbsp;Weet je zeker dat je dit project wilt verwijderen?
-
 </div>
-<?php foreach($deleten as $delete){?>
+
 <form class="text-center"action="homeController/deleteProject.php">
-<input type="text" name ="id" value="<?php echo $_GET["id"]?>" hidden>
-<button class="btn btn-danger" type="submit">Delete</button>
-<a class="btn btn-info" href="../home/index.php">Cancel</a>
+	<input type="text" name ="id" value="<?php echo $_GET["id"]?>" hidden>
+	<button class="btn btn-danger" type="submit">Delete</button>
+	<a class="btn btn-info" href="../home/index.php">Cancel</a>
 </form>
-<?php } ?>

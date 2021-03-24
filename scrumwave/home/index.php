@@ -117,11 +117,11 @@ body{
   <span class="caret"></span></button>
   <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
   <?php foreach($doneProject as $Done){?>
-    <li role="presentation"><a href="<?php echo URL ?>Home/oneProject/<?php echo $Done["Id"];?>" role="menuitem"><?php echo $Done["Name"]?></a></li><br>
+    <li role="presentation"><a href="home/project2.php?id=<?php echo $Done["id"]?>" role="menuitem"><?php echo $Done["Name"]?></a></li><br>
   <?php } ?>
   </ul>
     <br><br><br><br>
 </div>
-<a id="overview" href="<?php echo URL ?>Home/allProjects"><i class="fas fa-tasks"></i></a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<a id="overview" href="projects/index.php"><i class="fas fa-tasks"></i></a>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
