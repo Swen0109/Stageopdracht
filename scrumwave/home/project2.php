@@ -397,7 +397,7 @@
 
         <!-- de code voor de projectForm -->
         <div class="projectForm" id="projectForm<?php echo $project["Id"]?>" name="projectForm">
-          <form name="projectForm" method="post" action="../projects/projectsController/updateProjectsOneProject.php?id=<?php echo $project["Id"] ?>" class="form-container2"><br><br>
+          <form name="projectForm" method="post" action="../projects/ProjectsController/updateProjectsOneProject.php?id=<?php echo $project["Id"] ?>" class="form-container2"><br><br>
                   
             <!-- normale input voor name en discription -->
             <input type="text" placeholder="project Name:" name="Name" value="<?php echo $project["Name"]?>" required><br><br>
